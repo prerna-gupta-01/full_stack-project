@@ -4,4 +4,5 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
+// Trigger restart
 export default nextConfig;
