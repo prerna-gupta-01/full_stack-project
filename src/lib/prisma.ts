@@ -10,15 +10,15 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient }
 const connectionString = process.env.DATABASE_URL
 
 if (!connectionString) {
-  throw new Error("DATABASE_URL is not set")
+  console.warn("DATABASE_URL is not set. Database operations will fail at runtime.")
 }
 
-const pool = new Pool({
+const pool = connectionString ? new Pool({
   connectionString,
-})
+}) : null
 
-const adapter = new PrismaPg(pool)
+const adapter = pool ? new PrismaPg(pool) : null
 
-export const prisma = globalForPrisma.prisma || new PrismaClient({ adapter })
+export const prisma = globalForPrisma.prisma || new PrismaClient(adapter ? { adapter } : undefined)
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
