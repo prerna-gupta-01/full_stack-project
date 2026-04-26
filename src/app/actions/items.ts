@@ -32,7 +32,7 @@ export async function submitLostItem(formData: FormData) {
     where: { email: 'prerna@campus.com' },
     update: {},
     create: {
-      name: 'Prerna',
+      fullName: 'Prerna',
       email: 'prerna@campus.com',
       studentId: 'STU001',
       password: 'password123',
